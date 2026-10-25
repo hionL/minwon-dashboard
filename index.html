@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>시군구 민원 현황판</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>시군구 민원 현황판</h1>
+    <span class="sub">2026년 1~9월 접수분 · 교육용 가상 데이터 1,000건</span>
+  </header>
+
+  <section class="filters" aria-label="필터">
+    <div class="f"><label for="fSido">시도</label><select id="fSido"></select></div>
+    <div class="f"><label for="fDept">담당부서</label><select id="fDept"></select></div>
+    <div class="f"><label for="fCh">접수경로</label><select id="fCh"></select></div>
+    <div class="f"><label for="fSt">처리상태</label><select id="fSt"></select></div>
+    <div class="f"><label for="fFrom">기간</label>
+      <span style="display:flex;gap:6px;align-items:center"><select id="fFrom"></select>~<select id="fTo"></select></span></div>
+    <div class="f"><label for="fQ">검색</label><input id="fQ" type="search" placeholder="접수번호·민원유형"></div>
+    <button id="reset" type="button">초기화</button>
+  </section>
+
+  <section class="kpis" aria-label="요약 지표">
+    <div class="kpi"><span class="k">접수 건수</span><span class="v" id="kCount">-</span></div>
+    <div class="kpi"><span class="k">완료율</span><span class="v" id="kDone">-</span></div>
+    <div class="kpi"><span class="k">평균 처리일수 (완료·반려)</span><span class="v" id="kDays">-</span></div>
+    <div class="kpi alert"><span class="k">7일 초과 처리</span><span class="v" id="kLate">-</span></div>
+    <div class="kpi"><span class="k">평균 만족도 (5점)</span><span class="v" id="kSat">-</span></div>
+  </section>
+
+  <section class="grid">
+    <div class="panel"><h2>월별 접수 건수</h2><span class="note">처리상태별로 쌓은 막대</span><div class="chart"><canvas id="cMonth"></canvas></div></div>
+    <div class="panel"><h2>부서별 접수 건수</h2><span class="note">많은 순</span><div class="chart"><canvas id="cDept"></canvas></div></div>
+    <div class="panel"><h2>접수경로별 평균 만족도</h2><span class="note">완료 건만, 1~5점</span><div class="chart"><canvas id="cCh"></canvas></div></div>
+    <div class="panel"><h2>처리일수 분포</h2><span class="note">7일 초과 구간은 붉게 표시</span><div class="chart"><canvas id="cDays"></canvas></div></div>
+  </section>
+
+  <section class="panel" aria-label="상세 목록">
+    <h2 id="tTitle">상세 목록</h2>
+    <div class="tablebox">
+      <table>
+        <thead><tr><th>접수번호</th><th>접수일</th><th>시도</th><th>시군구</th><th>담당부서</th><th>민원유형</th><th>접수경로</th><th>처리상태</th><th>처리일수</th><th>만족도</th></tr></thead>
+        <tbody id="tBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>index.html, styles.css, app.js 세 파일로 구성됩니다. 데이터는 app.js 안에 들어 있고 차트는 Chart.js(CDN)를 씁니다. 폐쇄망에서 열려면 Chart.js 파일을 같은 폴더에 두고 경로를 바꾸세요.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
